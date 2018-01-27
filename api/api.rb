@@ -10,9 +10,10 @@ class Api < Sinatra::Base
   end
 
   post '/new_note' do
-    note = {}
-    note['text'] = params['text']
-    note['type'] = params['type']
+    note = {
+      'text' => params['text'],
+      'type' => params['type']
+    }
 
     new_note = Actions::CreateNote.do(note)
 
