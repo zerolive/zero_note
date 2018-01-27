@@ -42,6 +42,15 @@ describe 'Note' do
     expect(new_note['created_at']).to eq(creation_date)
   end
 
+  it 'can have a due date' do
+    due_date = '27-01-2017'
+    note = { 'due_date' => due_date }
+
+    post '/new_note', note
+
+    expect(new_note['due_date']).to eq(due_date)
+  end
+
   def new_note
     JSON.parse(last_response.body)
   end

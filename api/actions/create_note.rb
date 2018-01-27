@@ -6,7 +6,8 @@ module Actions
       def do(note)
         new_note = Services::Notes.create(
           text: note['text'],
-          type: note['type']
+          type: note['type'],
+          due_date: note['due_date']
         )
 
         new_note

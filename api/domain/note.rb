@@ -3,17 +3,19 @@ require_relative '../infrastructure/moment'
 class Note
   DEFAULT_TYPE = 'task'
 
-  def initialize(text:'', type:DEFAULT_TYPE, created_at:'')
+  def initialize(text:'', type:DEFAULT_TYPE, created_at:'', due_date:'')
     @text = text
     @type = type
     @created_at = created_at
+    @due_date = due_date
   end
 
   def serialize
     {
       'text' => @text,
       'type' => type,
-      'created_at' => created_at
+      'created_at' => created_at,
+      'due_date' => @due_date
     }
   end
 
