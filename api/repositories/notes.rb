@@ -1,3 +1,4 @@
+require_relative '../infrastructure/moment'
 require_relative '../infrastructure/client'
 require_relative '../domain/note'
 
@@ -21,7 +22,31 @@ module Repositories
         client.update_one(id: id, document: document)
       end
 
+      def undone
+        documents = client.undone
+
+        notes = documents.map do |document|
+          Note.from(document)
+        end
+
+        notes
+      end
+
+      def done_today
+        documents = client.done(today)
+
+        notes = documents.map do |document|
+          Note.from(document)
+        end
+
+        notes
+      end
+
       private
+
+      def today
+        Infrastructure::Moment.today
+      end
 
       def client
         Infrastructure::Client

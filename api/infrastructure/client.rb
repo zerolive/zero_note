@@ -31,6 +31,18 @@ module Infrastructure
         nil
       end
 
+      def undone
+        documents = client[:notes].find(done_date: '')
+
+        documents
+      end
+
+      def done(date)
+        documents = client[:notes].find(done_date: date)
+
+        documents
+      end
+
       def drop
         client[:notes].drop
         client.close

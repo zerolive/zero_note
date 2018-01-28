@@ -19,6 +19,13 @@ module Services
 
         note.serialize
       end
+
+      def for_today
+        undone = Repositories::Notes.undone
+        created_today = Repositories::Notes.done_today
+
+        undone + created_today
+      end
     end
   end
 end
