@@ -51,6 +51,19 @@ describe 'Note' do
     expect(new_note['due_date']).to eq(due_date)
   end
 
+  it 'can be done' do
+    done_date = '27-01-2017'
+    allow(Infrastructure::Moment).to receive(:today).and_return(done_date)
+    id = 'an_id'
+    note = { 'id' => id }
+    created_note = Note.new(id: id)
+    Infrastructure::Client.insert_one(created_note.serialize)
+
+    post '/mark_as_done', note
+
+    expect(new_note['done_date']).to eq(done_date)
+  end
+
   def new_note
     JSON.parse(last_response.body)
   end

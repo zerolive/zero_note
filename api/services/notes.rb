@@ -10,6 +10,15 @@ module Services
         new_note = Repositories::Notes.insert_one(note)
         new_note.serialize
       end
+
+      def mark_as_done(id)
+        note = Repositories::Notes.find(id: id)
+
+        note.mark_as_done
+        Repositories::Notes.update(note)
+
+        note.serialize
+      end
     end
   end
 end

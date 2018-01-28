@@ -5,9 +5,29 @@ module Infrastructure
     class << self
       URI = "mongodb://mongo:27017/db"
 
-      def insert_one(document)
+      def insert_one(document={})
         client[:notes].insert_one(document)
         client.close
+        nil
+      end
+
+      def find(id:'')
+        query = { 'id' => id }
+        document = client[:notes].find(id: id)
+        client.close
+
+        document.first
+      end
+
+      def update_one(id:'', document:{})
+        return nil if id.empty?
+
+        client[:notes].update_one(
+          { id: id },
+          '$set' => document
+        )
+        client.close
+
         nil
       end
 
