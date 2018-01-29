@@ -1,4 +1,5 @@
 require_relative './actions/notes_for_today'
+require_relative './actions/mark_as_undone'
 require_relative './actions/mark_as_done'
 require_relative './actions/create_note'
 require 'sinatra/base'
@@ -35,5 +36,13 @@ class Api < Sinatra::Base
     notes = Actions::NotesForToday.do
 
     notes.to_json
+  end
+
+  post '/mark_as_undone' do
+    id = params['id']
+
+    note = Actions::MarkAsUndone.do(id)
+
+    note.to_json
   end
 end

@@ -20,6 +20,15 @@ module Services
         note.serialize
       end
 
+      def mark_as_undone(id)
+        note = Repositories::Notes.find(id: id)
+
+        note.mark_as_undone
+        Repositories::Notes.update(note)
+
+        note.serialize
+      end
+
       def for_today
         undone = Repositories::Notes.undone
         created_today = Repositories::Notes.done_today

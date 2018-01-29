@@ -16,3 +16,8 @@ services:
     command: rackup config.ru -o 0.0.0.0
     links:
       - mongo
+
+  lib:
+    build: ./lib
+    volumes:
+      - ./lib:/lib

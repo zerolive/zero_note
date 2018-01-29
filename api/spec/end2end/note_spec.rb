@@ -64,6 +64,21 @@ describe 'Note' do
     expect(new_note['done_date']).to eq(done_date)
   end
 
+  it 'can be mark as undone' do
+    id = 'an_id'
+    note = { 'id' => id }
+    created_note = Note.new(id: id, done_date: 'any_date')
+    Infrastructure::Client.insert_one(created_note.serialize)
+
+    post '/mark_as_undone', note
+
+    expect(old_note['done_date']).to be_empty
+  end
+
+  def old_note
+    new_note
+  end
+
   def new_note
     JSON.parse(last_response.body)
   end

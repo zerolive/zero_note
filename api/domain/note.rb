@@ -3,6 +3,7 @@ require_relative '../infrastructure/random'
 
 class Note
   DEFAULT_TYPE = 'task'
+  UNDONE_DATE = ''
 
   def self.from(document)
     new(
@@ -26,6 +27,10 @@ class Note
 
   def mark_as_done
     @done_date = new_date
+  end
+
+  def mark_as_undone
+    @done_date = UNDONE_DATE
   end
 
   def serialize
