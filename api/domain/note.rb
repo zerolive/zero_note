@@ -33,6 +33,24 @@ class Note
     @done_date = UNDONE_DATE
   end
 
+  def new_text(new_text='')
+    return if no_attribute?(new_text)
+
+    @text = new_text
+  end
+
+  def new_due_date(new_due_date='')
+    return if no_attribute?(new_due_date)
+
+    @due_date = new_due_date
+  end
+
+  def new_type(new_type='')
+    return if no_attribute?(new_type)
+
+    @type = new_type
+  end
+
   def serialize
     {
       'id' => id,
@@ -50,6 +68,10 @@ class Note
     return new_id if no_id?
 
     @id
+  end
+
+  def no_attribute?(attribute)
+    attribute.nil? || attribute.empty?
   end
 
   def new_id

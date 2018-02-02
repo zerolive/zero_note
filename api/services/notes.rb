@@ -35,6 +35,16 @@ module Services
 
         undone + created_today
       end
+
+      def update(id: id, text: text, type: type, due_date: due_date)
+        note = Repositories::Notes.find(id: id)
+        note.new_text(text)
+        note.new_type(type)
+        note.new_due_date(due_date)
+        Repositories::Notes.update(note)
+
+        note.serialize
+      end
     end
   end
 end

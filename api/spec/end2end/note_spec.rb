@@ -75,6 +75,24 @@ describe 'Note' do
     expect(old_note['done_date']).to be_empty
   end
 
+  it 'can update the text, due date and type' do
+    id = 'an_id'
+    new_attributes = {
+      'id' => id,
+      'text' => 'New text',
+      'type' => 'New Type',
+      'due_date' => 'New date'
+    }
+    created_note = Note.new(id: id)
+    Infrastructure::Client.insert_one(created_note.serialize)
+
+    post'/update_note', new_attributes
+
+    expect(new_note['text']).to eq(new_attributes['text'])
+    expect(new_note['type']).to eq(new_attributes['type'])
+    expect(new_note['due_date']).to eq(new_attributes['due_date'])
+  end
+
   def old_note
     new_note
   end
